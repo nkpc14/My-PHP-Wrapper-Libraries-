@@ -5,7 +5,13 @@
  * Date: 8/11/2018
  * Time: 1:41 PM
  */
-require_once "../database/dbh.php";
+
+define('DB_HOST','localhost');
+define('DB_USER','root');
+define('DB_PASS','');
+define('DB_NAME','work');
+
+
 class PhpDataObject
 {
     public $connection;
@@ -101,18 +107,18 @@ class PhpDataObject
      * @param array $params
      * @throws Exception
      */
-    public function Update($query, $params=[]){
-        $this->getRows($query,$params);
-    }
+//    public function Update($query, $params=[]){
+//        $this->getRows($query,$params);
+//    }
 
     /**
-     * @param $query
-     * @param array $params
-     * @throws Exception
+     * @param $sql
+     * @param array $parameters
+     * @return PhpDataObject
      */
-    public function Delete($query, $params=[]){
-        $this->getRows($query,$params);
-    }
+//    public function Delete($query, $params=[]){
+//        $this->getRows($query,$params);
+//    }
 
     public function query($sql, $parameters = array()){
         $this->error = FALSE;
@@ -125,12 +131,25 @@ class PhpDataObject
             if ($this->query->execute()){
                 $this->results = $this->query->fetchAll(PDO::FETCH_ASSOC);
                 $this->count = $this->query->rowCount();
-                $this->lastId = $this->query->lastInsertedId();
+//                $this->lastId = $this->query->lastInsertedId();
             } else {
                 $this->error = TRUE;
             }
         }
         return $this;
+    }
+
+    public function delete(){
+        $this->query_string = "DELETE ";
+        return $this;
+    }
+
+    public function update($fields = "*"){
+        $this->query_string = "UPDATE ";
+    }
+
+    public function set(){
+
     }
 
 
@@ -174,6 +193,30 @@ class PhpDataObject
             $this->query($this->query_string,$this->bindValues);
         $this->bindValues = array();
     }
+
+    public function results(){
+        return $this->results;
+    }
+
+    public function first(){
+        return $this->results[0];
+    }
+
+    public function last(){
+        return $this->results[$this->count-1];
+    }
+    public function row($id){
+        return $this->results[$id];
+    }
+    public function error(){
+        return $this->error;
+    }
+    public function count(){
+        return $this->count;
+    }
+    public function lastId(){
+        return $this->lastId;
+    }
 }
 
-$database = new PhpDataObject();
+
