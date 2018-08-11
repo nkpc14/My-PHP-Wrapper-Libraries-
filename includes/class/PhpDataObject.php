@@ -98,9 +98,9 @@ class PhpDataObject
      * @param array $params
      * @throws Exception
      */
-    public function Insert($query, $params=[]){
-        $this->getRows($query,$params);
-    }
+//    public function Insert($query, $params=[]){
+//        $this->getRows($query,$params);
+//    }
 
     /**
      * @param $query
@@ -129,8 +129,8 @@ class PhpDataObject
                 $this->query->bindValue($i,$param);
             }
             if ($this->query->execute()){
-                $this->results = $this->query->fetchAll(PDO::FETCH_ASSOC);
-                $this->count = $this->query->rowCount();
+//                $this->results = $this->query->fetchAll(PDO::FETCH_ASSOC);
+//                $this->count = $this->query->rowCount();
 //                $this->lastId = $this->query->lastInsertedId();
             } else {
                 $this->error = TRUE;
@@ -139,6 +139,24 @@ class PhpDataObject
         return $this;
     }
 
+
+    public function insert($keys = [],$values = [],$table){
+        $action = "";
+        $this->query_string = "";
+        if (is_array($keys) and is_array($values)){
+            $action = "INSERT INTO ".$table." ";
+                $keys = implode(",",$keys);
+                $values = "'".implode("','",$values)."'";
+            $action .="(".$keys.") VALUES (".$values.")";
+        }
+        $this->query_string.=$action;
+        echo $this->query_string;
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
     public function delete(){
         $this->query_string = "DELETE ";
         return $this;
@@ -170,6 +188,10 @@ class PhpDataObject
         return $this;
     }
 
+    /**
+     * @param $table
+     * @return $this
+     */
     public function from($table){
         $this->query_string .= " FROM ($table)";
         return $this;
