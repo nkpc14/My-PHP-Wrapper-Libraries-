@@ -6,7 +6,7 @@
  * Time: 2:08 AM
  */
 
-class DatabasePDO {
+class DataObject {
 
     private static $instance = null;
     private $pdo;

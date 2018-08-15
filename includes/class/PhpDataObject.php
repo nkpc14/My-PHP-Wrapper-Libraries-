@@ -150,7 +150,6 @@ class PhpDataObject
             $action .="(".$keys.") VALUES (".$values.")";
         }
         $this->query_string.=$action;
-        echo $this->query_string;
         return $this;
     }
 
