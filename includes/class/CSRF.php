@@ -1,7 +1,6 @@
 <?php
 
 
-
 class CSRF{
 
     public static $key;

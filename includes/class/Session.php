@@ -5,7 +5,6 @@
  * Date: 8/10/2018
  * Time: 9:38 AM
  */
-
 class Session
 {
     /**

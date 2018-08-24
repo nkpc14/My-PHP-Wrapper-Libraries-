@@ -58,6 +58,21 @@ class DataObject {
         return $this;
     }
 
+    public function update($fields = "*",$table_name, $params){
+            $action = "";
+            $this->$query_string = "";
+            if(is_array($fields)){
+                $action = "UPDATE";
+            }
+           return  $this;
+        )
+
+    public function set($params){
+            //Here params is a Associative array for th key value payers for the DB
+            $action = "";
+    }
+
+
     public function select($fields = "*") { // id , name , reg
         $action = "";
         $this->query_string = "";

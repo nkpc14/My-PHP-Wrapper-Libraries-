@@ -12,5 +12,3 @@ require_once "../includes/class/DataObjectDatabase.php";
 require_once "../includes/class/ErrorHandler.php";
 require_once "../includes/class/Security.php";
 require_once "../includes/class/PhpDataObject.php";
-
-

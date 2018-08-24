@@ -36,6 +36,7 @@ class PhpDataObject
 
     }
 
+
     /**
      * @throws Exception
      */
@@ -139,7 +140,7 @@ class PhpDataObject
         return $this;
     }
 
-
+        INSERT INTO TABLE_NAME (name,roll,mob) VALUES ("Nitish",9,7376977077);
     public function insert($keys = [],$values = [],$table){
         $action = "";
         $this->query_string = "";
@@ -149,7 +150,7 @@ class PhpDataObject
                 $values = "'".implode("','",$values)."'";
             $action .="(".$keys.") VALUES (".$values.")";
         }
-        $this->query_string.=$action;
+        $this->$query_string.=$action;
         return $this;
     }
 
@@ -161,12 +162,23 @@ class PhpDataObject
         return $this;
     }
 
-    public function update($fields = "*"){
+    public function update($keys = [], $table){
+        //Updating the DB
+            /*Keys = fetch_assoc() 
+         * This will get  the assoc result and update the database
+         * only works with UPDATE
+         */
         $this->query_string = "UPDATE ";
-    }
 
-    public function set(){
-
+        if(is_array($param)){
+            $action = $table." SET ";
+            foreach ($keys as $key => $value){
+                $result = implode(",",$keys."=".$value);
+            }
+            $action .= $result;
+            $this->$query_string .=$action;
+        }
+       return $this;
     }
 
 
